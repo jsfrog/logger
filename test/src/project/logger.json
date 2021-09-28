@@ -1,0 +1,33 @@
+{
+  "appenders": [{
+      "name": "CONSOLE",
+      "class": "ConsoleAppender",
+      "layout": {
+        "class": "PatternLayout",
+        "pattern": "%date{yyyy-MM-dd HH:mm:ss.S} [%level] [%class.%method] %line %row - %msg%n"
+      }
+    },
+    {
+      "name": "APPLICATION",
+      "class": "DailyRollingFileAppender",
+      "layout": {
+        "class": "JsonLayout",
+        "pattern": "createTime:%date{yyyy-MM-dd HH:mm:ss.S}, level:%level,className:%class,methodName:%method,line:%line,row:%row,message:%msg,file:%file,stack:%stack"
+      },
+      "appenderExt": {
+        "fileNamePattern" : "@logs/application/application-%date{yyyy-MM-dd HH-mm}.log",
+        "maxFileSize": "200KB",
+        "holdDay": 15
+      }
+    }
+  ],
+  "loggers": [
+    {"name": "geek.logger.*", "level": "TRACE", "additivity": false, "appenderRefs":  [{"ref": "CONSOLE"}, {"ref": "APPLICATION"}]}
+  ],
+  "root": {
+    "level": "TRACE",
+    "appenderRefs": [{
+      "ref": "CONSOLE"
+    }]
+  }
+}
